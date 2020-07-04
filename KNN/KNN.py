@@ -1,3 +1,10 @@
+##################################################
+# Process the data here, if needed
+##################################################
+#For better numerical stability is advisible to divide by 255
+x_train=x_train/255
+x_valid=x_valid/255
+
 
 ##################################################
 # Implement you model here
@@ -18,11 +25,6 @@ x_train_scaled = scaler.transform(x_train)
 x_valid_scaled = scaler.transform(x_valid)
 x_train=x_train_scaled
 x_valid=x_valid_scaled
-
-#For better numerical stability is advisible to divide by 255(if not already done in preprocessing)
-x_train=x_train/255
-x_valid=x_valid/255
-
 
 
 #***************************************************************************
