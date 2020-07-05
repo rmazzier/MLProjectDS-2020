@@ -19,14 +19,14 @@ y_valid_reshape = convert_to_one_hot(y_valid, 10)
 ##### Neural Network ####
 def model1(input_shape):
     X_input = Input(input_shape)
-    X = Conv2D(filters=16,
-               kernel_size=(5, 5), 
+    X = Conv2D(filters=32,
+               kernel_size=(3, 3), 
                strides=(1, 1), 
                name='conv0', 
                padding='same',
                activation='relu')(X_input)#'same' preserve the dimension of input through the convolutions
-    X= MaxPooling2D(pool_size=(4, 4), strides=(1, 1), padding='same')(X)
-    X=Conv2D(filters=16, kernel_size=(5, 5), strides=(1,1), padding='same', activation='relu')(X)
+    X= MaxPooling2D(pool_size=(2, 2), strides=(1, 1), padding='same')(X)
+    X=Conv2D(filters=32, kernel_size=(3, 3), strides=(1,1), padding='same', activation='relu')(X)
     X=MaxPooling2D((2, 2), strides=(2, 2), padding='same')(X)
     # FLATTEN X (means convert it to a vector) + FULLYCONNECTED
     X = Flatten()(X)
@@ -47,11 +47,12 @@ model1.compile(optimizer = "adam",
                metrics = ["accuracy"])
 
 
-model1.fit(x = x_train_reshape, y = y_train, epochs = 4, batch_size = 25)
+model1.fit(x = x_train_reshape, y = y_train_reshape, epochs = 4, batch_size = 25)
 
 x_valid_reshape=x_valid.reshape(10000,28,28,1)
-preds=model1.evaluate(x=x_valid_reshape,y=y_valid)
+preds=model1.evaluate(x=x_valid_reshape,y=y_valid_reshape)
 print()
 print ("Loss = " + str(preds[0]))
-print ("Test Accuracy = " + str(preds[1]))
+print ("Valid set Accuracy = " + str(preds[1]))
+
 
